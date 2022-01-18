@@ -47,7 +47,7 @@ sigma = get_snr(signal=excess, bkg=bkg_counts_in_region)
 print(f'snr = {sigma} sigmas')
 
 # get exposure
-exposure = get_exsposure_in_region(target=target, pointing=pointing, trange=trange, erange=erange, irf=irf, index=spectral_index)
+exposure = get_exposure_in_region(target=target, pointing=pointing, trange=trange, erange=erange, irf=irf, index=spectral_index)
 print(f'exposure = {exposure} cm2/s')
 
 # compute flux 
