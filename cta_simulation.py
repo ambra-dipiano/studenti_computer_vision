@@ -2,7 +2,7 @@
 import gammalib
 import ctools
 
-def run_ctobssim(model, pointing, output, energy=(0.03, 150), time=(0, 1200), fov=5, caldb='prod3b-v2', irf='South_z40_0.5h', seed=1):
+def run_ctobssim(model, pointing, output, energy=(0.03, 150), time=(0, 10), fov=5, caldb='prod3b-v2', irf='South_z40_0.5h', seed=1):
     sim = ctools.ctobssim()
     sim["inmodel"] = model
     sim["outevents"] = output
@@ -19,7 +19,7 @@ def run_ctobssim(model, pointing, output, energy=(0.03, 150), time=(0, 1200), fo
     sim.execute()
 
 
-def run_skymap(obs, output, energy=(0.03, 150), time=(0, 1200), roi=5, caldb='prod3b-v2', irf='South_z40_0.5h', wbin=0.02):
+def run_skymap(obs, output, energy=(0.03, 150), roi=5, caldb='prod3b-v2', irf='South_z40_0.5h', wbin=0.02):
     nbin = int(roi*2/wbin)
     skymap = ctools.ctskymap()
     skymap['inobs'] = obs
