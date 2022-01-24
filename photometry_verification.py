@@ -4,17 +4,17 @@ from sagsci.tools.utils import *
 from sagsci.tools.photometry import *
 
 # observation and target
-obs_crab = 'data/bkg000001.fits'
+obs_crab = 'data/crab_test_sim.fits'
 
-target = {'ra': 33.557, 'dec': -51.841}
-pointing = {'ra': 33.057, 'dec': -51.841}
+target = {'ra': 83.6331, 'dec': 22.0145}
+pointing = {'ra': 83.6331, 'dec': 22.5145}
 
 # configuration
-erange = [(0.03, 0.0449), (0.0449, 0.0671), (0.0671, 0.1003), (0.1003, 0.15)]
-trange = [0, 10]         # livetime in seconds (s)
+erange = [(0.03, 50)]
+trange = [0, 100]         # livetime in seconds (s)
 radius = 0.2               # photometry region in degrees (deg)
-spectral_index = -2.1     # slope of the power-law spectrum
-irf = expandvars('$CTOOLS/share/caldb/data/cta/prod3b/bcf/South_z40_average_LST_30m/irf_file.fits')
+spectral_index = -2.48     # slope of the power-law spectrum
+irf = expandvars('$CTOOLS/share/caldb/data/cta/prod3b-v2/bcf/South_z20_0.5h/irf_file.fits')
 
 # we need to add "radius" to the target dictionary 
 target['rad'] = radius
@@ -37,6 +37,8 @@ for e in erange:
 
     on, off, alpha, excess, sigma, err_note = phm.counting(src=target, rad=target['rad'], off_regions=off_regions, e_min=e[0], e_max=e[1], t_min=trange[0], t_max=trange[1], draconian=False)
     print(f'on counts = {on} cts')
+    print(f'excess counts = {excess} cts')
+    print(f'significance = {sigma} cts')
 
     exposure = get_aeff_in_region(target=target, pointing=pointing, trange=trange, erange=e, irf=irf, index=spectral_index)
     print(f'aeff = {exposure} cm2')

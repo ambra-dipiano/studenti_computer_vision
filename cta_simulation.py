@@ -37,17 +37,22 @@ def run_skymap(obs, output, energy=(0.03, 150), roi=5, caldb='prod3b-v2', irf='S
     skymap['proj'] = 'CAR'
     skymap.execute()
 
-
-# definie the pointing
+# definie the pointing and fov
 pointing = (83.6331, 22.5145)
+fov = 5
+
+# define parameters
+erange = (0.03, 5)     
+trange = (0, 100) 
+irf = 'North_z20_0.5h'
 
 # simulate background
-model = '$CTOOLS/share/models/bkg_irf.xml'
-run_ctobssim(model=model, pointing=pointing, output='./data/bkg_test_sim.fits')
-run_skymap(obs='./data/bkg_test_sim.fits', output='./data/bkg_test_sky.fits')
+model = './models/bkg_irf.xml'
+run_ctobssim(model=model, pointing=pointing, output='./data/bkg_test_sim.fits', energy=erange, time=trange, fov=fov, irf=irf)
+run_skymap(obs='./data/bkg_test_sim.fits', output='./data/bkg_test_sky.fits', energy=erange, roi=fov, irf=irf)
 
 # simulate source
-model = '$CTOOLS/share/models/crab.xml'
-run_ctobssim(model=model, pointing=pointing, output='./data/crab_test_sim.fits')
-run_skymap(obs='./data/crab_test_sim.fits', output='./data/crab_test_sky.fits')
+model = './models/group3.xml'
+run_ctobssim(model=model, pointing=pointing, output='./data/crab_test_sim.fits', energy=erange, time=trange, fov=fov, irf=irf)
+run_skymap(obs='./data/crab_test_sim.fits', output='./data/crab_test_sky.fits', energy=erange, roi=fov, irf=irf)
 
