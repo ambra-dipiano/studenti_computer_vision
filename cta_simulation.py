@@ -1,5 +1,12 @@
-# import the required libraries
-import gammalib
+# *******************************************************************************
+# Copyright (C) 2020-2021 INAF
+#
+# This software is distributed under the terms of the BSD-3-Clause license
+#
+# Authors:
+# Ambra Di Piano <ambra.dipiano@inaf.it>
+# *******************************************************************************
+
 import ctools
 
 def run_ctobssim(model, pointing, output, energy=(0.03, 150), time=(0, 10), fov=5, caldb='prod3b-v2', irf='South_z40_0.5h', seed=1):
@@ -52,7 +59,7 @@ run_ctobssim(model=model, pointing=pointing, output='./data/bkg_test_sim.fits', 
 run_skymap(obs='./data/bkg_test_sim.fits', output='./data/bkg_test_sky.fits', energy=erange, roi=fov, irf=irf)
 
 # simulate source
-model = './models/group3.xml'
+model = './models/group4.xml'
 run_ctobssim(model=model, pointing=pointing, output='./data/crab_test_sim.fits', energy=erange, time=trange, fov=fov, irf=irf)
-run_skymap(obs='./data/crab_test_sim.fits', output='./data/crab_test_sky.fits', energy=erange, roi=fov, irf=irf)
+run_skymap(obs='./data/crab_test_sim.fits', output='./data/crab_test_sky4_subIRF.fits', energy=erange, roi=fov, irf=irf)
 
